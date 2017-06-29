@@ -17,6 +17,7 @@ namespace RunMango
 
 namespace RunMango.Models
 {
+    [MongoDoc]
     class Model1
     {
         [BsonId]
