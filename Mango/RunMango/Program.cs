@@ -3,6 +3,7 @@ using Mango;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Text.RegularExpressions;
 
 namespace RunMango
 {
@@ -33,4 +34,24 @@ namespace RunMango.Models
     {
 
     }
-}
+
+    [MongoDoc("model3")]
+    class Model3
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.String)]
+        public string Id { get; set; }
+
+        [BsonElement("token")]
+        [BsonRepresentation(BsonType.String)]
+        public string Token { get; set; }
+    }
+
+    [MongoDoc]
+    class ModelFooBar4
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.String)]
+        public string Id { get; set; }
+    }
+    }
