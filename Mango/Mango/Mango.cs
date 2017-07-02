@@ -16,7 +16,7 @@ namespace Mango
 
         public static void Run(string connectionString, string dbName, string assemblyName, string namespaceName = "")
         {
-            DbConnection.SetDB(dbName, connectionString);
+            DbConnection.SetDB(connectionString, dbName);
             InitializeDb(assemblyName, namespaceName);
         }
 
@@ -74,7 +74,6 @@ namespace Mango
 
         public MongoDocAttribute(string name = "")
         {
-            if (name != "")
             {
                 this.CollectionName = name;
             }

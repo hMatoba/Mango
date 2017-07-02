@@ -19,7 +19,7 @@ namespace Mango
         }
 
 
-        private static void Connect(string dbName, string connectionString)
+        private static void Connect(string connectionString, string dbName)
         {
             var client = new MongoClient(connectionString);
             db = client.GetDatabase(dbName);
