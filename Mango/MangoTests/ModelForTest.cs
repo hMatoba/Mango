@@ -19,12 +19,6 @@ namespace MangoTests.Models
         [BsonRepresentation(BsonType.String)]
         public string Token { get; set; }
 
-        public static CreateIndexOptions IndexOptions = new CreateIndexOptions()
-        {
-            DefaultLanguage = "",
-            ExpireAfter = TimeSpan.FromDays(3),
-        };
-
         public static CreateCollectionOptions CollectionOptions = new CreateCollectionOptions()
         {
             Capped = false,
