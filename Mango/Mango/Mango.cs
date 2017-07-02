@@ -3,50 +3,54 @@ using System.Reflection;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Mango
 {
     public class MongoInitializer
     {
-        public static void Initialize(string assemblyName, string namespaceName="")
+        public static void Run(IMongoDatabase db, string assemblyName, string namespaceName = "")
+        {
+            DbConnection.SetDB(db);
+            InitializeDb(assemblyName, namespaceName);
+        }
+
+        public static void Run(string connectionString, string dbName, string assemblyName, string namespaceName = "")
+        {
+            DbConnection.SetDB(dbName, connectionString);
+            InitializeDb(assemblyName, namespaceName);
+        }
+
+
+        public static void InitializeDb(string assemblyName, string namespaceName)
         {
             var namespaceFullName = namespaceName == "" ? $"{assemblyName}.Models" : namespaceName;
-            var myAssembly = Assembly.Load(new AssemblyName(assemblyName));
-            var myTypes = myAssembly.GetTypes().Where(t => t.Namespace == namespaceFullName).ToList();
-            foreach (var type in myTypes)
+            var models = GetModels(assemblyName, namespaceFullName);
+            foreach (var modelClass in models)
             {
-                var mongoDoc = HasMongoDocAttribute(type);
+                var mongoDoc = HasMongoDocAttribute(modelClass);
                 if (mongoDoc != null)
                 {
-                    Console.WriteLine(type.Name);
-                    string collectionName;
-                    if (mongoDoc.CollectionName != "")
+                    var collectionName = mongoDoc.CollectionName != "" ? mongoDoc.CollectionName : modelClass.Name;
+                    var collections = DbConnection.db.ListCollections().ToList<BsonDocument>().Select(c => c["name"].AsString);
+
+                    if (!collections.Contains(collectionName))
                     {
-                        collectionName = mongoDoc.CollectionName;
+                        var collectionOptions = modelClass.GetField("CollectionOptions") != null
+                                                    ? (CreateCollectionOptions)modelClass.GetField("CollectionOptions").GetValue(null)
+                                                    : null;
+                        DbConnection.db.CreateCollection(collectionName, collectionOptions);
                     }
-                    else
-                    {
-                        collectionName = GetSnakeCase(type.Name);
-                    }
-                    Console.WriteLine(collectionName);
-                    
                 }
-
             }
-
-
+          
         }
 
-        private static string GetSnakeCase(string str)
+        private static Type[] GetModels(string assemblyName, string modelNamespace)
         {
-            var pattern = "[a-z][A-Z]";
-            var rgx = new Regex(pattern);
-            var snakeStr = rgx.Replace(str, m => m.Groups[0].Value[0] + "_" + m.Groups[0].Value[1])
-                         .ToLower();
-            return snakeStr;
+            var myAssembly = Assembly.Load(new AssemblyName(assemblyName));
+            var models = myAssembly.GetTypes().Where(t => t.Namespace == modelNamespace).ToArray();
+            return models;
         }
-
 
         private static MongoDocAttribute HasMongoDocAttribute(Type type)
         {

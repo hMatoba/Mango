@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Bson.Serialization.Attributes;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace RunMango
 {
@@ -11,7 +12,7 @@ namespace RunMango
     {
         static void Main(string[] args)
         {
-            MongoInitializer.Initialize("RunMango");
+            MongoInitializer.Run("mongodb://localhost", "test", "RunMango");
         }
     }
 }
@@ -28,6 +29,19 @@ namespace RunMango.Models
         [BsonElement("token")]
         [BsonRepresentation(BsonType.String)]
         public string Token { get; set; }
+
+        public static CreateIndexOptions IndexOptions = new CreateIndexOptions()
+        {
+            DefaultLanguage = "",
+            ExpireAfter = TimeSpan.FromDays(3),
+        };
+
+        public static CreateCollectionOptions CollectionOptions = new CreateCollectionOptions()
+        {
+            Capped = false,
+        };
+
+
     }
 
     class Model2
