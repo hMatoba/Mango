@@ -35,7 +35,6 @@ namespace MangoTests
 
         public Fixture()
         {
-            Console.WriteLine("init.");
             DbConnection.SetDB(connectionString, dbName);
             var db = DbConnection.db;
             db.DropCollection("Model1");
@@ -45,9 +44,6 @@ namespace MangoTests
 
         public void Dispose()
         {
-            var db = DbConnection.db;
-            db.DropCollection("Model1");
-            Console.WriteLine("over.");
         }
     }
 
