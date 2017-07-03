@@ -10,7 +10,7 @@ namespace MangoTests
     [CollectionDefinition("CallFixture")]
     public class UnitTest1
     {
-        private string connectionString = "mongodb://localhost";
+        private string connectionString = "mongodb://127.0.0.1";
         private string dbName = "mango";
 
         [Fact]
@@ -30,7 +30,7 @@ namespace MangoTests
 
     public class Fixture : IDisposable
     {
-        private string connectionString = "mongodb://localhost";
+        private string connectionString = "mongodb://127.0.0.1";
         private string dbName = "mango";
 
         public Fixture()
