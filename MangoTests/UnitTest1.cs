@@ -10,15 +10,15 @@ namespace MangoTests
     [CollectionDefinition("CallFixture")]
     public class UnitTest1
     {
-        private string connectionString = "mongodb://127.0.0.1";
-        private string dbName = "mango";
-
         [Fact]
         public void Test1()
         {
-            MongoInitializer.Run(connectionString, dbName, "MangoTests");
+            MongoInitializer.Run(Settings.connectionString,
+                                 Settings.dbName,
+                                 Settings.assemblyName);
 
-            DbConnection.SetDB(connectionString, dbName);
+            DbConnection.SetDB(Settings.connectionString,
+                               Settings.dbName);
             var db = DbConnection.db;
             var collections = db.ListCollections().ToList<BsonDocument>().Select(e => e["name"].AsString);
             Assert.True(collections.Contains("Model1"));
@@ -30,12 +30,10 @@ namespace MangoTests
 
     public class Fixture : IDisposable
     {
-        private string connectionString = "mongodb://127.0.0.1";
-        private string dbName = "mango";
-
         public Fixture()
         {
-            DbConnection.SetDB(connectionString, dbName);
+            DbConnection.SetDB(Settings.connectionString,
+                               Settings.dbName);
             var db = DbConnection.db;
             db.DropCollection("Model1");
             db.DropCollection("model3");
