@@ -31,5 +31,6 @@ License
 
 This software is released under the MIT License, see LICENSE.txt.
 
-.. |Build Status| .. image:: https://travis-ci.org/hMatoba/Mango.svg?branch=master
+
+.. |Build Status| image:: https://travis-ci.org/hMatoba/Mango.svg?branch=master
     :target: https://travis-ci.org/hMatoba/Mango
