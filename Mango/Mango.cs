@@ -35,10 +35,21 @@ namespace Mango
 
                     if (!collections.Contains(collectionName))
                     {
-                        var collectionOptions = modelClass.GetField("CollectionOptions") != null
-                                                    ? (CreateCollectionOptions)modelClass.GetField("CollectionOptions").GetValue(null)
+                        var collectionOptions = modelClass.GetField("collectionOptions") != null
+                                                    ? (CreateCollectionOptions)modelClass.GetField("collectionOptions").GetValue(null)
                                                     : null;
                         DbConnection.db.CreateCollection(collectionName, collectionOptions);
+                        var collection = DbConnection.db.GetCollection<BsonDocument>(collectionName);
+
+                        var indexOptions = modelClass.GetField("indexOptions") != null
+                                                    ? (CreateIndexOptions)modelClass.GetField("indexOptions").GetValue(null)
+                                                    : null;
+                        if (indexOptions != null)
+                        {
+                            var field = new StringFieldDefinition<BsonDocument>(collectionName);
+                            var indexDefinition = new IndexKeysDefinitionBuilder<BsonDocument>().Ascending(field);
+                            collection.Indexes.CreateOne(indexDefinition, indexOptions);
+                        }
                     }
                 }
             }
