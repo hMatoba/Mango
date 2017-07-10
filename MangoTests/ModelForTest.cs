@@ -19,14 +19,22 @@ namespace MangoTests.Models
         [BsonRepresentation(BsonType.String)]
         public string Token { get; set; }
 
+        [BsonElement("createdAt")]
+        [BsonRepresentation(BsonType.Timestamp)]
+        public DateTime CreatedAt { get; set; }
+
+
         public static CreateCollectionOptions collectionOptions = new CreateCollectionOptions()
         {
             Capped = false,
         };
 
-        public static CreateIndexOptions indexOptions = new CreateIndexOptions()
+        public static List<CreateIndexModel<BsonDocument>> indexModels = new List<CreateIndexModel<BsonDocument>>()
         {
-            ExpireAfter = TimeSpan.FromDays(7)
+            new CreateIndexModel<BsonDocument>(
+                new IndexKeysDefinitionBuilder<BsonDocument>().Ascending(new StringFieldDefinition<BsonDocument>("createdAt")),
+                new CreateIndexOptions(){ ExpireAfter = TimeSpan.FromSeconds(10) }
+            )
         };
 
     }

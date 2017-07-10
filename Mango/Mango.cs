@@ -3,6 +3,7 @@ using System.Reflection;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Mango
 {
@@ -41,14 +42,12 @@ namespace Mango
                         DbConnection.db.CreateCollection(collectionName, collectionOptions);
                         var collection = DbConnection.db.GetCollection<BsonDocument>(collectionName);
 
-                        var indexOptions = modelClass.GetField("indexOptions") != null
-                                                    ? (CreateIndexOptions)modelClass.GetField("indexOptions").GetValue(null)
+                        var indexModels = modelClass.GetField("indexModels") != null
+                                                    ? (List<CreateIndexModel<BsonDocument>>)modelClass.GetField("indexModels").GetValue(null)
                                                     : null;
-                        if (indexOptions != null)
+                        if (indexModels != null)
                         {
-                            var field = new StringFieldDefinition<BsonDocument>(collectionName);
-                            var indexDefinition = new IndexKeysDefinitionBuilder<BsonDocument>().Ascending(field);
-                            collection.Indexes.CreateOne(indexDefinition, indexOptions);
+                            collection.Indexes.CreateMany(indexModels);
                         }
                     }
                 }
