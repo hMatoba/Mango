@@ -1,5 +1,5 @@
 ﻿using System;
-using Mango;
+using MangoFramework;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Bson.Serialization.Attributes;

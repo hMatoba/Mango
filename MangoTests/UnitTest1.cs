@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using Mango;
+using MangoFramework;
 using System.Linq;
 
 namespace MangoTests

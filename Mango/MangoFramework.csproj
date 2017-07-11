@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
+    <AssemblyName>MangoFramework</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

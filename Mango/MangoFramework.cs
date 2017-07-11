@@ -5,7 +5,7 @@ using MongoDB.Driver;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Mango
+namespace MangoFramework
 {
     public class MongoInitializer
     {

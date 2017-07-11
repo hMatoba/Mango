@@ -2,7 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 
-namespace Mango
+namespace MangoFramework
 {
     public static class DbConnection
     {

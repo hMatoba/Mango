@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mango\Mango.csproj" />
+    <ProjectReference Include="..\Mango\MangoFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>
