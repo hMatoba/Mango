@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace MangoTests.Models
 {
     [MongoDoc]
-    class Model1
+    class Model1 : MangoBase
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
@@ -38,13 +38,13 @@ namespace MangoTests.Models
 
     }
 
-    class Model2
+    class Model2 : MangoBase
     {
 
     }
 
     [MongoDoc("model3")]
-    class Model3
+    class Model3 : MangoBase
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
@@ -56,7 +56,7 @@ namespace MangoTests.Models
     }
 
     [MongoDoc]
-    class ModelFooBar4
+    class ModelFooBar4 : MangoBase
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]

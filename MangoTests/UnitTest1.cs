@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MangoFramework;
 using System.Linq;
+using MangoTests.Models;
 
 namespace MangoTests
 {
@@ -26,6 +27,19 @@ namespace MangoTests
             Assert.True(collections.Contains("ModelFooBar4"));
         }
 
+        [Fact]
+        public void Test2()
+        {
+            var model1 = new Model1();
+            Assert.True(model1.CollectionName == "Model1");
+
+
+            var model3 = new Model3();
+            Assert.True(model3.CollectionName == "model3");
+
+            var modelFooBar4 = new ModelFooBar4();
+            Assert.True(modelFooBar4.CollectionName == "ModelFooBar4");
+        }
     }
 
     public class Fixture : IDisposable
