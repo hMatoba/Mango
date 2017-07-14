@@ -89,19 +89,4 @@ namespace MangoFramework
             }
         }
     }
-
-    public abstract class MangoBase
-    {
-        public string CollectionName
-        {
-            get
-            {
-                var docAttribute = this.GetType().GetTypeInfo().GetCustomAttribute<MongoDocAttribute>();
-                var collectionName = docAttribute.CollectionName;
-                return collectionName != ""
-                       ? collectionName
-                       : this.GetType().Name;
-            }
-        }
-    }
 }
