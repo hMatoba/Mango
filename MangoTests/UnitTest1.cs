@@ -27,15 +27,6 @@ namespace MangoTests
             Assert.True(collections.Contains("ModelFooBar4"));
         }
 
-        [Fact]
-        public void Test2()
-        {
-            Assert.True(Model1.CollectionName == "Model1");
-
-            Assert.True(Model3.CollectionName == "model3");
-
-            Assert.True(ModelFooBar4.CollectionName == "ModelFooBar4");
-        }
 }
 
     public class Fixture : IDisposable
