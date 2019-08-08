@@ -1,8 +1,5 @@
 sudo: false
-language: csharp
-mono: none
-dotnet: 1.0.1
-dist: trusty
+dist: xenial
 services:
   - mongodb
 addons:
@@ -13,7 +10,10 @@ addons:
     packages:
       - mongodb-org-server
       - mongodb-org-shell
-
+before|install:
+- sudo apt-get update
+- sudo snap install dotnet-sdk --beta --classic
+- sudo snap alias dotnet-sdk.dotnet dotnet
 install:
 - dotnet restore
 script:

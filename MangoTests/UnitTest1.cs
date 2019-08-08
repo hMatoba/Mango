@@ -22,9 +22,9 @@ namespace MangoTests
                                Settings.dbName);
             var db = DbConnection.db;
             var collections = db.ListCollections().ToList<BsonDocument>().Select(e => e["name"].AsString);
-            Assert.True(collections.Contains("Model1"));
-            Assert.True(collections.Contains("model3"));
-            Assert.True(collections.Contains("ModelFooBar4"));
+            Assert.Contains("Model1", collections);
+            Assert.Contains("model3", collections);
+            Assert.Contains("ModelFooBar4", collections);
         }
 
 }
