@@ -10,7 +10,7 @@ addons:
     packages:
       - mongodb-org-server
       - mongodb-org-shell
-before|install:
+before_install:
 - sudo apt-get update
 - sudo snap install dotnet-sdk --beta --classic
 - sudo snap alias dotnet-sdk.dotnet dotnet
