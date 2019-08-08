@@ -12,7 +12,7 @@ addons:
       - mongodb-org-shell
 before_install:
 - sudo apt-get update
-- sudo snap install dotnet-sdk --beta --classic
+- sudo snap install dotnet-sdk --classic
 - sudo snap alias dotnet-sdk.dotnet dotnet
 install:
 - dotnet restore
